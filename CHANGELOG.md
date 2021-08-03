@@ -3,6 +3,7 @@
 # intellij-stepbuilder-codegen-plugin Changelog
 
 ## [Unreleased]
+## [1.1.2]
 ### Added
 - Support for IntelliJ 2021.2 (branch number 212)
 ## [1.1.1]
