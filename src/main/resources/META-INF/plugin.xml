@@ -1,19 +1,22 @@
 <idea-plugin>
-    <id>com.github.sebastienvermeille.intellijstepbuildercodegenplugin</id>
-    <name>intellij-stepbuilder-codegen-plugin</name>
-    <vendor>sebastienvermeille</vendor>
+    <id>cookiecode-stepbuilder-plugin</id>
+    <name>Stepbuilder Codegen</name>
+    <vendor email="sebastien.vermeille@gmail.com" url="https://cookiecode.dev">Sebastien Vermeille</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.sebastienvermeille.intellijstepbuildercodegenplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.sebastienvermeille.intellijstepbuildercodegenplugin.services.MyProjectService"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.sebastienvermeille.intellijstepbuildercodegenplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <!-- Add your actions here -->
+        <action id="com.github.sebastienvermeille.intellijstepbuildercodegenplugin.StepBuilderAction"
+                class="com.github.sebastienvermeille.intellijstepbuildercodegenplugin.StepBuilderAction" text="Generate Step Builder">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+    </actions>
+
 </idea-plugin>
