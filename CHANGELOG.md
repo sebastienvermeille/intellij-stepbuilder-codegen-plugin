@@ -2,6 +2,6 @@
 
 # intellij-stepbuilder-codegen-plugin Changelog
 
-## [Unreleased]
+## 1.1.0
 ### Added
-- Port plugin to decent versions of Jetbrains IDE
+- Port plugin to recent versions of Jetbrains IDE
