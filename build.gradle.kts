@@ -17,6 +17,8 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.17.1"
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    // Sonar support
+    id("org.sonarqube") version "3.3"
 }
 
 group = properties("pluginGroup")
@@ -41,6 +43,14 @@ intellij {
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "sebastienvermeille_intellij-stepbuilder-codegen-plugin"
+        property "sonar.organization", "sebastienvermeille"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
 // Configure gradle-changelog-plugin plugin.
