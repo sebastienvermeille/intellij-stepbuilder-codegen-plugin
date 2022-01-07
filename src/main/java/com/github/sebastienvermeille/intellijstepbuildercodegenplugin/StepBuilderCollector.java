@@ -54,7 +54,7 @@ public final class StepBuilderCollector {
 
     private static List<PsiFieldMember> collectFieldsInClass(final PsiElement element, final PsiClass accessObjectClass,
             final PsiClass clazz) {
-        final List<PsiFieldMember> classFieldMembers = new ArrayList<PsiFieldMember>();
+        final List<PsiFieldMember> classFieldMembers = new ArrayList<>();
         final PsiResolveHelper helper = JavaPsiFacade.getInstance(clazz.getProject()).getResolveHelper();
 
         for (final PsiField field : clazz.getFields()) {
