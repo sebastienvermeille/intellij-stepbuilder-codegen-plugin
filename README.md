@@ -3,6 +3,11 @@
 ![Build](https://github.com/sebastienvermeille/intellij-stepbuilder-codegen-plugin/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/cookiecode-stepbuilder-plugin.svg)](https://plugins.jetbrains.com/plugin/cookiecode-stepbuilder-plugin)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/cookiecode-stepbuilder-plugin.svg)](https://plugins.jetbrains.com/plugin/cookiecode-stepbuilder-plugin)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebastienvermeille_intellij-stepbuilder-codegen-plugin&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=sebastienvermeille_intellij-stepbuilder-codegen-plugin)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sebastienvermeille_intellij-stepbuilder-codegen-plugin&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sebastienvermeille_intellij-stepbuilder-codegen-plugin)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sebastienvermeille_intellij-stepbuilder-codegen-plugin&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=sebastienvermeille_intellij-stepbuilder-codegen-plugin)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=sebastienvermeille_intellij-stepbuilder-codegen-plugin&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=sebastienvermeille_intellij-stepbuilder-codegen-plugin)
+
 
 <!-- Plugin description -->
 A plugin to generate step builders for your Java classes. 
