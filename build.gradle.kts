@@ -47,9 +47,9 @@ intellij {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "sebastienvermeille_intellij-stepbuilder-codegen-plugin"
-        property "sonar.organization", "sebastienvermeille"
-        property "sonar.host.url", "https://sonarcloud.io"
+        property("sonar.projectKey", "sebastienvermeille_intellij-stepbuilder-codegen-plugin")
+        property("sonar.organization", "sebastienvermeille")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
