@@ -2,7 +2,13 @@
 
 # intellij-stepbuilder-codegen-plugin Changelog
 
-## [Unreleased]
+### [1.1.5]
+### Added
+- Support for IntelliJ 2022.1.1 (branch number 221)
+### [1.1.4]
+### Added
+- Support for IntelliJ 2022.x (branch number 221)
+## [1.1.3]
 ### Added
 - Support for IntelliJ 2021.3 (branch number 213)
 - Sonarqube analysis integration in the CI pipelines
