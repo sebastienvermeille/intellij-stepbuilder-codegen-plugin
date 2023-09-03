@@ -33,6 +33,6 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          uses: Ilshidur/action-discord@master
-          with:
-            args: '{{ EVENT_PAYLOAD.repository.full_name }} version {{ EVENT_PAYLOAD.release.name }} is out!'
+        uses: Ilshidur/action-discord@master
+        with:
+          args: '{{ EVENT_PAYLOAD.repository.full_name }} version {{ EVENT_PAYLOAD.release.name }} is out!'
