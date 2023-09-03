@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: zulu
-          java-version: 11
+          java-version: 17
       # Build artifact using buildPlugin Gradle task
       - name: Build Plugin
         run: ./gradlew -Pversion=${{ github.event.release.tag_name }} buildPlugin

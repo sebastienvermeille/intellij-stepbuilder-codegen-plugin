@@ -74,17 +74,17 @@ detekt {
 }
 
 tasks {
-    // Set the compatibility versions to 11
+    // Set the compatibility versions to 17
     withType<JavaCompile> {
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
     }
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
 
     withType<Detekt> {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     patchPluginXml {
