@@ -3,15 +3,32 @@
 
 version: 2
 updates:
-  # Maintain dependencies for Gradle dependencies
+  # Enable version updates for gradle
   - package-ecosystem: "gradle"
     directory: "/"
-    target-branch: "next"
+    # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
-  # Maintain dependencies for GitHub Actions
+    assignees:
+      - "sebastienvermeille"
+    reviewers:
+      - "sebastienvermeille"
+    commit-message:
+      prefix: "[gradle] "
+    labels:
+      - "java"
+      - "dependencies"
+
+  # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "next"
     schedule:
       interval: "daily"
+    assignees:
+      - "sebastienvermeille"
+    reviewers:
+      - "sebastienvermeille"
+    commit-message:
+      prefix: "[github-action] "
+    labels:
+      - "cicd"
