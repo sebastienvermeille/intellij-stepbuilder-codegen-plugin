@@ -19,95 +19,99 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 public final class StepBuilderCollector {
-    private StepBuilderCollector() { }
+  private StepBuilderCollector() {}
 
-    @Nullable
-    public static List<PsiFieldMember> collectFields(final PsiFile file, final Editor editor) {
-        final int offset = editor.getCaretModel().getOffset();
-        final PsiElement element = file.findElementAt(offset);
-        if (element == null) {
-            return null;
-        }
-
-        final PsiClass clazz = PsiTreeUtil.getParentOfType(element, PsiClass.class);
-        if (clazz == null || clazz.hasModifierProperty(ABSTRACT)) {
-            return null;
-        }
-
-        final List<PsiFieldMember> allFields = new ArrayList<PsiFieldMember>();
-
-        PsiClass classToExtractFieldsFrom = clazz;
-        while (classToExtractFieldsFrom != null) {
-            if (classToExtractFieldsFrom.hasModifierProperty(STATIC)) {
-                break;
-            }
-
-            final List<PsiFieldMember> classFieldMembers = collectFieldsInClass(element, clazz,
-                    classToExtractFieldsFrom);
-            allFields.addAll(0, classFieldMembers);
-
-            classToExtractFieldsFrom = classToExtractFieldsFrom.getSuperClass();
-        }
-
-        return allFields;
+  @Nullable
+  public static List<PsiFieldMember> collectFields(final PsiFile file, final Editor editor) {
+    final int offset = editor.getCaretModel().getOffset();
+    final PsiElement element = file.findElementAt(offset);
+    if (element == null) {
+      return null;
     }
 
-    private static List<PsiFieldMember> collectFieldsInClass(final PsiElement element, final PsiClass accessObjectClass,
-            final PsiClass clazz) {
-        final List<PsiFieldMember> classFieldMembers = new ArrayList<>();
-        final PsiResolveHelper helper = JavaPsiFacade.getInstance(clazz.getProject()).getResolveHelper();
+    final PsiClass clazz = PsiTreeUtil.getParentOfType(element, PsiClass.class);
+    if (clazz == null || clazz.hasModifierProperty(ABSTRACT)) {
+      return null;
+    }
 
-        for (final PsiField field : clazz.getFields()) {
+    final List<PsiFieldMember> allFields = new ArrayList<PsiFieldMember>();
 
-            // check access to the field from the builder container class (eg. private superclass fields)
-            if (helper.isAccessible(field, accessObjectClass, clazz)
-                    && !PsiTreeUtil.isAncestor(field, element, false)) {
+    PsiClass classToExtractFieldsFrom = clazz;
+    while (classToExtractFieldsFrom != null) {
+      if (classToExtractFieldsFrom.hasModifierProperty(STATIC)) {
+        break;
+      }
 
-                // skip static fields
-                if (field.hasModifierProperty(STATIC)) {
-                    continue;
-                }
+      final List<PsiFieldMember> classFieldMembers =
+          collectFieldsInClass(element, clazz, classToExtractFieldsFrom);
+      allFields.addAll(0, classFieldMembers);
 
-                // skip any uppercase fields
-                if (!hasLowerCaseChar(field.getName())) {
-                    continue;
-                }
+      classToExtractFieldsFrom = classToExtractFieldsFrom.getSuperClass();
+    }
 
-                // skip eventual logging fields
-                final String fieldType = field.getType().getCanonicalText();
-                if ("org.apache.log4j.Logger".equals(fieldType) || "org.apache.logging.log4j.Logger".equals(fieldType)
-                        || "java.util.logging.Logger".equals(fieldType) || "org.slf4j.Logger".equals(fieldType)
-                        || "ch.qos.logback.classic.Logger".equals(fieldType)
-                        || "net.sf.microlog.core.Logger".equals(fieldType)
-                        || "org.apache.commons.logging.Log".equals(fieldType)
-                        || "org.pmw.tinylog.Logger".equals(fieldType) || "org.jboss.logging.Logger".equals(fieldType)
-                        || "jodd.log.Logger".equals(fieldType)) {
-                    continue;
-                }
+    return allFields;
+  }
 
-                if (field.hasModifierProperty(FINAL)) {
-                    if (field.getInitializer() != null) {
-                        continue; // skip final fields that are assigned in the declaration
-                    }
+  private static List<PsiFieldMember> collectFieldsInClass(
+      final PsiElement element, final PsiClass accessObjectClass, final PsiClass clazz) {
+    final List<PsiFieldMember> classFieldMembers = new ArrayList<>();
+    final PsiResolveHelper helper =
+        JavaPsiFacade.getInstance(clazz.getProject()).getResolveHelper();
 
-                    if (!accessObjectClass.isEquivalentTo(clazz)) {
-                        continue; // skip final superclass fields
-                    }
-                }
+    for (final PsiField field : clazz.getFields()) {
 
-                final PsiClass containingClass = field.getContainingClass();
-                if (containingClass != null) {
-                    classFieldMembers.add(buildFieldMember(field, containingClass, clazz));
-                }
-            }
+      // check access to the field from the builder container class (eg. private superclass fields)
+      if (helper.isAccessible(field, accessObjectClass, clazz)
+          && !PsiTreeUtil.isAncestor(field, element, false)) {
+
+        // skip static fields
+        if (field.hasModifierProperty(STATIC)) {
+          continue;
         }
 
-        return classFieldMembers;
+        // skip any uppercase fields
+        if (!hasLowerCaseChar(field.getName())) {
+          continue;
+        }
+
+        // skip eventual logging fields
+        final String fieldType = field.getType().getCanonicalText();
+        if ("org.apache.log4j.Logger".equals(fieldType)
+            || "org.apache.logging.log4j.Logger".equals(fieldType)
+            || "java.util.logging.Logger".equals(fieldType)
+            || "org.slf4j.Logger".equals(fieldType)
+            || "ch.qos.logback.classic.Logger".equals(fieldType)
+            || "net.sf.microlog.core.Logger".equals(fieldType)
+            || "org.apache.commons.logging.Log".equals(fieldType)
+            || "org.pmw.tinylog.Logger".equals(fieldType)
+            || "org.jboss.logging.Logger".equals(fieldType)
+            || "jodd.log.Logger".equals(fieldType)) {
+          continue;
+        }
+
+        if (field.hasModifierProperty(FINAL)) {
+          if (field.getInitializer() != null) {
+            continue; // skip final fields that are assigned in the declaration
+          }
+
+          if (!accessObjectClass.isEquivalentTo(clazz)) {
+            continue; // skip final superclass fields
+          }
+        }
+
+        final PsiClass containingClass = field.getContainingClass();
+        if (containingClass != null) {
+          classFieldMembers.add(buildFieldMember(field, containingClass, clazz));
+        }
+      }
     }
 
-    private static PsiFieldMember buildFieldMember(final PsiField field, final PsiClass containingClass,
-            final PsiClass clazz) {
-        return new PsiFieldMember(field,
-                TypeConversionUtil.getSuperClassSubstitutor(containingClass, clazz, EMPTY));
-    }
+    return classFieldMembers;
+  }
+
+  private static PsiFieldMember buildFieldMember(
+      final PsiField field, final PsiClass containingClass, final PsiClass clazz) {
+    return new PsiFieldMember(
+        field, TypeConversionUtil.getSuperClassSubstitutor(containingClass, clazz, EMPTY));
+  }
 }

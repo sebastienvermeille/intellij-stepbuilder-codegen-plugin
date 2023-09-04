@@ -18,80 +18,82 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 public final class StepBuilderUtils {
-    @NonNls
-    static final String JAVA_DOT_LANG = "java.lang.";
+  @NonNls static final String JAVA_DOT_LANG = "java.lang.";
 
-    private StepBuilderUtils() { }
+  private StepBuilderUtils() {}
 
-    /**
-     * Does the string have a lowercase character?
-     *
-     * @param str the string to test.
-     * @return true if the string has a lowercase character, false if not.
-     */
-    public static boolean hasLowerCaseChar(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if (Character.isLowerCase(str.charAt(i))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static String capitalize(String str) {
-        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
-    }
-
-    static String stripJavaLang(String typeString) {
-        return typeString.startsWith(JAVA_DOT_LANG) ? typeString.substring(JAVA_DOT_LANG.length()) : typeString;
-    }
-
-    static boolean areParameterListsEqual(PsiParameterList paramList1, PsiParameterList paramList2) {
-        if (paramList1.getParametersCount() != paramList2.getParametersCount()) {
-            return false;
-        }
-
-        final PsiParameter[] param1Params = paramList1.getParameters();
-        final PsiParameter[] param2Params = paramList2.getParameters();
-        for (int i = 0; i < param1Params.length; i++) {
-            final PsiParameter param1Param = param1Params[i];
-            final PsiParameter param2Param = param2Params[i];
-
-            if (!areTypesPresentableEqual(param1Param.getType(), param2Param.getType())) {
-                return false;
-            }
-        }
-
+  /**
+   * Does the string have a lowercase character?
+   *
+   * @param str the string to test.
+   * @return true if the string has a lowercase character, false if not.
+   */
+  public static boolean hasLowerCaseChar(String str) {
+    for (int i = 0; i < str.length(); i++) {
+      if (Character.isLowerCase(str.charAt(i))) {
         return true;
+      }
     }
 
-    static boolean areTypesPresentableEqual(PsiType type1, PsiType type2) {
-        if (type1 != null && type2 != null) {
-            final String type1Canonical = stripJavaLang(type1.getPresentableText());
-            final String type2Canonical = stripJavaLang(type2.getPresentableText());
-            return type1Canonical.equals(type2Canonical);
-        }
+    return false;
+  }
 
+  public static String capitalize(String str) {
+    return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+  }
+
+  static String stripJavaLang(String typeString) {
+    return typeString.startsWith(JAVA_DOT_LANG)
+        ? typeString.substring(JAVA_DOT_LANG.length())
+        : typeString;
+  }
+
+  static boolean areParameterListsEqual(PsiParameterList paramList1, PsiParameterList paramList2) {
+    if (paramList1.getParametersCount() != paramList2.getParametersCount()) {
+      return false;
+    }
+
+    final PsiParameter[] param1Params = paramList1.getParameters();
+    final PsiParameter[] param2Params = paramList2.getParameters();
+    for (int i = 0; i < param1Params.length; i++) {
+      final PsiParameter param1Param = param1Params[i];
+      final PsiParameter param2Param = param2Params[i];
+
+      if (!areTypesPresentableEqual(param1Param.getType(), param2Param.getType())) {
         return false;
+      }
     }
 
-    @Nullable
-    public static PsiClass getTopLevelClass(Project project, PsiFile file, Editor editor) {
-        final int offset = editor.getCaretModel().getOffset();
-        final PsiElement element = file.findElementAt(offset);
-        if (element == null) {
-            return null;
-        }
+    return true;
+  }
 
-        return PsiUtil.getTopLevelClass(element);
+  static boolean areTypesPresentableEqual(PsiType type1, PsiType type2) {
+    if (type1 != null && type2 != null) {
+      final String type1Canonical = stripJavaLang(type1.getPresentableText());
+      final String type2Canonical = stripJavaLang(type2.getPresentableText());
+      return type1Canonical.equals(type2Canonical);
     }
 
-    public static boolean isPrimitive(PsiField psiField) {
-        return (psiField.getType() instanceof PsiPrimitiveType);
+    return false;
+  }
+
+  @Nullable
+  public static PsiClass getTopLevelClass(Project project, PsiFile file, Editor editor) {
+    final int offset = editor.getCaretModel().getOffset();
+    final PsiElement element = file.findElementAt(offset);
+    if (element == null) {
+      return null;
     }
 
-    static PsiStatement createReturnThis(@NotNull PsiElementFactory psiElementFactory, @Nullable PsiElement context) {
-        return psiElementFactory.createStatementFromText("return this;", context);
-    }
+    return PsiUtil.getTopLevelClass(element);
+  }
+
+  public static boolean isPrimitive(PsiField psiField) {
+    return (psiField.getType() instanceof PsiPrimitiveType);
+  }
+
+  static PsiStatement createReturnThis(
+      @NotNull PsiElementFactory psiElementFactory, @Nullable PsiElement context) {
+    return psiElementFactory.createStatementFromText("return this;", context);
+  }
 }
