@@ -112,7 +112,7 @@ public final class StepBuilderCollector {
     return classFieldMembers;
   }
 
-  private static boolean isLoggingField(PsiField field){
+  private static boolean isLoggingField(PsiField field) {
 
     final String fieldType = field.getType().getCanonicalText();
 
