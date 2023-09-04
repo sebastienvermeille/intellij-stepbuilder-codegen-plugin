@@ -19,6 +19,8 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     // google-java-format
     id("com.github.sherter.google-java-format") version "0.9"
+    // license header
+    id("com.github.hierynomus.license") version "0.16.1"
     // Sonar support
     id("org.sonarqube") version "4.3.1.3277"
 }
@@ -30,6 +32,7 @@ version = properties("pluginVersion")
 repositories {
     mavenCentral()
 }
+
 dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.17.1")
 }
@@ -77,6 +80,11 @@ detekt {
 
 googleJavaFormat {
     toolVersion = "1.1"
+}
+
+license {
+    header = rootProject.file(".code/LICENSE_HEADER.tpl")
+    strictCheck = true
 }
 
 tasks {
