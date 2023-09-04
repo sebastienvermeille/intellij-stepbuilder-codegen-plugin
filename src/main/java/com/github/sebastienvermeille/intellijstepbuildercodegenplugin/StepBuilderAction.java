@@ -1,3 +1,21 @@
+/**
+ * The MIT License Copyright © 2022 Sebastien Vermeille
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.github.sebastienvermeille.intellijstepbuildercodegenplugin;
 
 import com.intellij.codeInsight.CodeInsightActionHandler;
@@ -7,20 +25,19 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import com.sun.istack.NotNull;
 
-/**
- * The IntelliJ IDEA action for this plugin, generates an step builder class.
- */
+/** The IntelliJ IDEA action for this plugin, generates a step builder class. */
 public class StepBuilderAction extends BaseCodeInsightAction {
-    private final StepBuilderHandler handler = new StepBuilderHandler();
+  private final StepBuilderHandler handler = new StepBuilderHandler();
 
-    @NotNull
-    @Override
-    protected CodeInsightActionHandler getHandler() {
-        return handler;
-    }
+  @NotNull
+  @Override
+  protected CodeInsightActionHandler getHandler() {
+    return handler;
+  }
 
-    @Override
-    protected boolean isValidForFile(@NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
-        return handler.isValidFor(editor, file);
-    }
+  @Override
+  protected boolean isValidForFile(
+      @NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
+    return handler.isValidFor(editor, file);
+  }
 }
