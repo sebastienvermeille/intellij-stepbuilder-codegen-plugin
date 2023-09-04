@@ -359,25 +359,6 @@ public class StepBuilderGenerator implements Runnable {
     return copyBuilderMethod;
   }
 
-  private PsiMethod generateCopyConstructor(
-      final PsiClass topLevelClass,
-      final PsiType builderType,
-      final Collection<PsiFieldMember> nonFinalFields,
-      final Set<StepBuilderOption> options) {
-
-    final PsiMethod copyConstructor =
-        psiElementFactory.createConstructor(builderType.getPresentableText());
-    PsiUtil.setModifierProperty(copyConstructor, PsiModifier.PUBLIC, true);
-
-    final PsiType topLevelClassType = psiElementFactory.createType(topLevelClass);
-    final PsiParameter constructorParameter =
-        psiElementFactory.createParameter("copy", topLevelClassType);
-
-    copyConstructor.getParameterList().add(constructorParameter);
-    addCopyBody(nonFinalFields, copyConstructor, "this.");
-    return copyConstructor;
-  }
-
   private void addCopyBody(
       final Collection<PsiFieldMember> fields, final PsiMethod method, final String qName) {
     final PsiCodeBlock methodBody = method.getBody();
