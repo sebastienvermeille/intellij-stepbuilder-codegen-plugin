@@ -17,6 +17,8 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.17.1"
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    // google-java-format
+    id("com.github.sherter.google-java-format") version "0.9"
     // Sonar support
     id("org.sonarqube") version "4.3.1.3277"
 }
@@ -71,6 +73,10 @@ detekt {
         xml.enabled = false
         txt.enabled = false
     }
+}
+
+googleJavaFormat {
+    toolVersion = "1.1"
 }
 
 tasks {

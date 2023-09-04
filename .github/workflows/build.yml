@@ -22,6 +22,8 @@ jobs:
           java-version: 17
       - name: Run Linters and Test
         run: ./gradlew check
+      - name: Check code format follow google-style
+        run: ./gradlew verifyGoogleJavaFormat
       - name: Build Plugin
         run: ./gradlew buildPlugin
       - name: Verify Plugin
