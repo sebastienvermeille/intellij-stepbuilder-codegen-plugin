@@ -1,6 +1,8 @@
 package com.github.sebastienvermeille.intellijstepbuildercodegenplugin;
 
 import static com.github.sebastienvermeille.intellijstepbuildercodegenplugin.StepBuilderUtils.hasLowerCaseChar;
+import static com.intellij.psi.PsiModifier.*;
+import static com.intellij.psi.PsiSubstitutor.EMPTY;
 
 import com.intellij.codeInsight.generation.PsiFieldMember;
 import com.intellij.openapi.editor.Editor;
@@ -9,9 +11,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiModifier;
 import com.intellij.psi.PsiResolveHelper;
-import com.intellij.psi.PsiSubstitutor;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.TypeConversionUtil;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public final class StepBuilderCollector {
         }
 
         final PsiClass clazz = PsiTreeUtil.getParentOfType(element, PsiClass.class);
-        if (clazz == null || clazz.hasModifierProperty(PsiModifier.ABSTRACT)) {
+        if (clazz == null || clazz.hasModifierProperty(ABSTRACT)) {
             return null;
         }
 
@@ -38,7 +38,7 @@ public final class StepBuilderCollector {
 
         PsiClass classToExtractFieldsFrom = clazz;
         while (classToExtractFieldsFrom != null) {
-            if (classToExtractFieldsFrom.hasModifierProperty(PsiModifier.STATIC)) {
+            if (classToExtractFieldsFrom.hasModifierProperty(STATIC)) {
                 break;
             }
 
@@ -64,7 +64,7 @@ public final class StepBuilderCollector {
                     && !PsiTreeUtil.isAncestor(field, element, false)) {
 
                 // skip static fields
-                if (field.hasModifierProperty(PsiModifier.STATIC)) {
+                if (field.hasModifierProperty(STATIC)) {
                     continue;
                 }
 
@@ -85,7 +85,7 @@ public final class StepBuilderCollector {
                     continue;
                 }
 
-                if (field.hasModifierProperty(PsiModifier.FINAL)) {
+                if (field.hasModifierProperty(FINAL)) {
                     if (field.getInitializer() != null) {
                         continue; // skip final fields that are assigned in the declaration
                     }
@@ -108,6 +108,6 @@ public final class StepBuilderCollector {
     private static PsiFieldMember buildFieldMember(final PsiField field, final PsiClass containingClass,
             final PsiClass clazz) {
         return new PsiFieldMember(field,
-                TypeConversionUtil.getSuperClassSubstitutor(containingClass, clazz, PsiSubstitutor.EMPTY));
+                TypeConversionUtil.getSuperClassSubstitutor(containingClass, clazz, EMPTY));
     }
 }

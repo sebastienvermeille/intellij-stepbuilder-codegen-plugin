@@ -8,7 +8,7 @@ import com.intellij.psi.PsiFile;
 import com.sun.istack.NotNull;
 
 /**
- * The IntelliJ IDEA action for this plugin, generates an step builder class.
+ * The IntelliJ IDEA action for this plugin, generates a step builder class.
  */
 public class StepBuilderAction extends BaseCodeInsightAction {
     private final StepBuilderHandler handler = new StepBuilderHandler();

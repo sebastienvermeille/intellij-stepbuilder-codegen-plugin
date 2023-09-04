@@ -94,10 +94,10 @@ public class StepBuilderGenerator implements Runnable {
 
         final Set<StepBuilderOption> options = currentOptions();
 
-        final List<PsiFieldMember> finalFields = new ArrayList<PsiFieldMember>(); //should't have setters
-        final List<PsiFieldMember> nonFinalFields = new ArrayList<PsiFieldMember>(); //should have setters
-        final List<PsiFieldMember> optionalNonfinalFields = new ArrayList<PsiFieldMember>();
-        final List<PsiFieldMember> mandatoryNonfinalFields = new ArrayList<PsiFieldMember>();
+        final List<PsiFieldMember> finalFields = new ArrayList<>(); //shouldn't have setters
+        final List<PsiFieldMember> nonFinalFields = new ArrayList<>(); //should have setters
+        final List<PsiFieldMember> optionalNonfinalFields = new ArrayList<>();
+        final List<PsiFieldMember> mandatoryNonfinalFields = new ArrayList<>();
 
         //generate the interfaces
         //generate optional interface
@@ -136,7 +136,7 @@ public class StepBuilderGenerator implements Runnable {
         topLevelClass.add(optionalInterface);
 
         //generate mandatory interfaces
-        final List<PsiClassType> mandatoryInterfaceTypes = new ArrayList<PsiClassType>();
+        final List<PsiClassType> mandatoryInterfaceTypes = new ArrayList<>();
         if(mandatoryFields != null && !mandatoryFields.isEmpty()){
             PsiClassType returnType = optionalInterfaceType;
 
@@ -275,7 +275,6 @@ public class StepBuilderGenerator implements Runnable {
         //add method parameter
         final PsiType topLevelClassType = psiElementFactory.createType(topLevelClass);
         final PsiParameter parameter = psiElementFactory.createParameter("copy", topLevelClassType);
-        final PsiModifierList parameterModifierList = parameter.getModifierList();
 
         copyBuilderMethod.getParameterList().add(parameter);
 
@@ -312,7 +311,6 @@ public class StepBuilderGenerator implements Runnable {
 
         final PsiType topLevelClassType = psiElementFactory.createType(topLevelClass);
         final PsiParameter constructorParameter = psiElementFactory.createParameter("copy", topLevelClassType);
-        final PsiModifierList parameterModifierList = constructorParameter.getModifierList();
 
         copyConstructor.getParameterList().add(constructorParameter);
         addCopyBody(nonFinalFields, copyConstructor, "this.");

@@ -13,6 +13,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.swing.JCheckBox;
 
+import static com.github.sebastienvermeille.intellijstepbuildercodegenplugin.StepBuilderOption.*;
+
 public final class StepBuilderOptionSelector {
     private static final List<SelectorOption> OPTIONS = createGeneratorOptions();
 
@@ -24,21 +26,21 @@ public final class StepBuilderOptionSelector {
 
         options.add(
                 SelectorOption.newBuilder()
-                        .withOption(StepBuilderOption.FINAL_SETTERS)
+                        .withOption(FINAL_SETTERS)
                         .withCaption("Generate builder methods for final fields")
                         .withMnemonic('f')
                         .build());
 
         options.add(
                 SelectorOption.newBuilder()
-                        .withOption(StepBuilderOption.COPY_CONSTRUCTOR)
+                        .withOption(COPY_CONSTRUCTOR)
                         .withCaption("Generate builder copy constructor")
                         .withMnemonic('o')
                         .build());
 
         options.add(
                 SelectorOption.newBuilder()
-                        .withOption(StepBuilderOption.WITH_JAVADOC)
+                        .withOption(WITH_JAVADOC)
                         .withCaption("Add Javadoc")
                         .withMnemonic('c')
                         .withTooltip("Add Javadoc to generated builder class and methods")
@@ -46,7 +48,7 @@ public final class StepBuilderOptionSelector {
 
         options.add(
                 SelectorOption.newBuilder()
-                        .withOption(StepBuilderOption.PUBLIC_INTERFACES)
+                        .withOption(PUBLIC_INTERFACES)
                         .withCaption("Make Interfaces public")
                         .withMnemonic('p')
                         .withTooltip("Make generated interfaces public")
@@ -69,7 +71,7 @@ public final class StepBuilderOptionSelector {
 
         final PsiFieldMember[] memberArray = members.toArray(new PsiFieldMember[members.size()]);
 
-        final MemberChooser<PsiFieldMember> chooser = new MemberChooser<PsiFieldMember>(memberArray,
+        final MemberChooser<PsiFieldMember> chooser = new MemberChooser<>(memberArray,
                 false, // allowEmptySelection
                 true,  // allowMultiSelection
                 project, null, optionCheckBoxes);
@@ -85,7 +87,6 @@ public final class StepBuilderOptionSelector {
 
     private static JCheckBox[] buildOptionCheckBoxes() {
         final PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-        //propertiesComponent.setValue(StepBuilderOption.NEW_BUILDER_METHOD.getProperty(), Boolean.toString(true));
         final int optionCount = OPTIONS.size();
         final JCheckBox[] checkBoxesArray = new JCheckBox[optionCount];
         for (int i = 0; i < optionCount; i++) {
@@ -105,12 +106,7 @@ public final class StepBuilderOptionSelector {
 
         final String optionProperty = option.getProperty();
         optionCheckBox.setSelected(propertiesComponent.isTrueValue(optionProperty));
-        optionCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(final ItemEvent event) {
-                propertiesComponent.setValue(optionProperty, Boolean.toString(optionCheckBox.isSelected()));
-            }
-        });
+        optionCheckBox.addItemListener(event -> propertiesComponent.setValue(optionProperty, Boolean.toString(optionCheckBox.isSelected())));
         return optionCheckBox;
     }
 }
