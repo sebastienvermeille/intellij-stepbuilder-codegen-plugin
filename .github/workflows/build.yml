@@ -8,7 +8,7 @@ on:
     types: [ opened, synchronize, reopened ]
 jobs:
   test:
-    name: Test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
@@ -26,3 +26,22 @@ jobs:
         run: ./gradlew buildPlugin
       - name: Verify Plugin
         run: ./gradlew verifyPlugin
+      - name: Extract PR number
+        if: github.event_name == 'pull_request'
+        run: echo ${{ github.event.number }} > PR_NUMBER.txt
+      - name: Store PR number
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
+        with:
+          name: PR_NUMBER
+          path: PR_NUMBER.txt
+          retention-days: 1
+          if-no-files-found: error
+      - name: Store build files
+        uses: actions/upload-artifact@v3
+        with:
+          name: BUILD_FILES
+          path: |
+            build/
+          retention-days: 1
+          if-no-files-found: error
