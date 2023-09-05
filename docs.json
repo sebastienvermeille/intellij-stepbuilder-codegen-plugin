@@ -18,6 +18,8 @@
     ["Examples", [
     ]],
     ["Misc.", [
+      ["Contributing", "/contributing"],
+      ["Stack", "/stack"]
     ]]
   ],
   "variables": {
