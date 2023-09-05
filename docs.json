@@ -4,7 +4,7 @@
   "favicon": "/assets/favicon.png",
   "logo": "/assets/logo.png",
   "googleAnalytics": "",
-  "theme": "#36B9B9",
+  "theme": "#281C34",
   "anchors": [
     { "title": "Homepage", "icon": "house", "link": "https://stepbuilder.cookiecode.dev/" },
     { "title": "Discord", "icon": "discord", "link": "https://discord.gg/uqQ2SWCQCb" }
