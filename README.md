@@ -1,6 +1,7 @@
 # intellij-stepbuilder-codegen-plugin
 
 ![Build](https://github.com/sebastienvermeille/intellij-stepbuilder-codegen-plugin/workflows/Build/badge.svg)
+[![join discord](https://img.shields.io/badge/join%20discord-gray?style=flat&logo=discord&link=https://discord.gg/uqQ2SWCQCb)](https://discord.gg/uqQ2SWCQCb)
 [![Version](https://img.shields.io/jetbrains/plugin/v/cookiecode-stepbuilder-plugin.svg)](https://plugins.jetbrains.com/plugin/cookiecode-stepbuilder-plugin)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/cookiecode-stepbuilder-plugin.svg)](https://plugins.jetbrains.com/plugin/cookiecode-stepbuilder-plugin)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sebastienvermeille_intellij-stepbuilder-codegen-plugin&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=sebastienvermeille_intellij-stepbuilder-codegen-plugin)
