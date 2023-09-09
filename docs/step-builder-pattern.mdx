@@ -31,15 +31,17 @@ var myEmail = Email.builder()
 ```
 This would build an email instance without any problem.
 
-But on the other hand it also allow to write it like that:
-```
+But on the other hand it also allows to write it like that:
+```java
+
 var myEmail = Email.builder()
 .withSubject("my subject")
 .build();
 ```
 
 Or even worse like that:
-```
+```java
+
 var myEmail = Email.builder()
 .build();
 ```
