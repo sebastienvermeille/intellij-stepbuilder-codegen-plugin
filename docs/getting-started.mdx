@@ -1,0 +1,102 @@
+# Getting started
+
+export const JetBrainsPluginButton = props => {
+    return <iframe width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/16792"></iframe>
+};
+
+<Tabs
+values={[
+{ label: 'IntelliJ', value: 'idea' },
+]}
+>
+    <TabItem value="idea">
+        # IntelliJ Idea
+
+        First: Install the plugin from the marketplace or via this button: <JetBrainsPluginButton/>
+
+        Then: Write a small class composed of a few attributes
+
+        ```java
+        public class RemoteServer {
+            private final int port;
+            private final String ip;
+        }
+        ```
+
+        Then `Alt` + `Insert` and select "Generate Step Builder":
+
+        <Image src="/assets/idea/generate-menu-action.png" generate menu />
+
+        <Info>
+            Alternatively you can also `Ctrl` + `Shift` + `a` > `Generate ...` > `Generate Step Builder`
+        </Info>
+
+        And then: Select the fields you want to be defined by the step builder:
+
+        <Image src="/assets/idea/generate-step-builder-action.png" generate stepbuilder />
+
+        Finally click *OK* and voila your code is generated:
+
+        ```java
+        public class RemoteServer {
+            private final int port;
+            private final String ip;
+
+            private RemoteServer(Builder builder) {
+                port = builder.port;
+                ip = builder.ip;
+            }
+
+            public static IPort builder() {
+                return new Builder();
+            }
+
+            public interface IBuild {
+                RemoteServer build();
+            }
+
+            public interface IIp {
+                IBuild withIp(String val);
+            }
+
+            public interface IPort {
+                IIp withPort(int val);
+            }
+
+            public static final class Builder implements IIp, IPort, IBuild {
+                private String ip;
+                private int port;
+
+                private Builder() {
+                }
+
+                @Override
+                public IBuild withIp(String val) {
+                    ip = val;
+                    return this;
+                }
+
+                @Override
+                public IIp withPort(int val) {
+                    port = val;
+                    return this;
+                }
+
+                public RemoteServer build() {
+                    return new RemoteServer(this);
+                }
+            }
+        }
+        ```
+
+        You can now simply use your builder:
+
+        ```java
+        var remoteServer = RemoteServer.builder()
+            .withPort(8080)
+            .withIp("42.42.42.42")
+            .build();
+        ```
+
+    </TabItem>
+</Tabs>

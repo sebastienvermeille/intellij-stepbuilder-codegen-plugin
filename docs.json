@@ -13,7 +13,8 @@
     ["Getting Started", [
       ["Overview", "/"],
       ["Getting Started", "/getting-started"],
-      ["Configuration", "/configuration"]
+      ["Configuration", "/configuration"],
+      ["Step builder pattern", "/step-builder-pattern"]
     ]],
     ["Examples", [
     ]],
