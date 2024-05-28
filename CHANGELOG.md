@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 ### Added
+- Support for IntelliJ 2024.2 (branch number 242)
+## [1.1.18]
+### Added
 - Support for IntelliJ 2024.1 (branch number 241)
 ## [1.1.13]
 ### Added
