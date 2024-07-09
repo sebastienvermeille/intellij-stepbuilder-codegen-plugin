@@ -23,7 +23,7 @@ plugins {
     // license header
     id("com.github.hierynomus.license") version "0.16.1"
     // Sonar support
-    id("org.sonarqube") version "5.0.0.4638"
+    id("org.sonarqube") version "5.1.0.4882"
 }
 
 group = properties("pluginGroup")
