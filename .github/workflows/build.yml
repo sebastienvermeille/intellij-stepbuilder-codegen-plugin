@@ -33,14 +33,14 @@ jobs:
         run: echo ${{ github.event.number }} > PR_NUMBER.txt
       - name: Store PR number
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4.3.6
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: PR_NUMBER
           path: PR_NUMBER.txt
           retention-days: 1
           if-no-files-found: error
       - name: Store build files
-        uses: actions/upload-artifact@v4.3.6
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: BUILD_FILES
           path: |
