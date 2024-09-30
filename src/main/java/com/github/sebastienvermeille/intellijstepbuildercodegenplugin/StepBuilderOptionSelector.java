@@ -28,8 +28,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.ui.NonFocusableCheckBox;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
 import javax.swing.JCheckBox;
+import org.jetbrains.annotations.Nullable;
 
 public final class StepBuilderOptionSelector {
   private static final List<SelectorOption> OPTIONS = createGeneratorOptions();
