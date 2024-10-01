@@ -1,4 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.changelog.Changelog
+import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -55,26 +57,8 @@ intellijPlatform {
     pluginConfiguration {
         id = "cookiecode-stepbuilder-plugin"
         name = "Stepbuilder Codegen"
-        description = """
-            A plugin to generate step builders for your Java classes. 
-            With step builder, you can easily provide fluent creation for your objects (i.e: `Address.builder().ip("192.168.1.1").port(80).build();`
-
-            What is the difference with a basic builder ?
-
-            The step builder enforce all mandatory (private final fields) to be set you can never forget to provide a 
-            property anymore and it also enforce the order of declaration of elements.
-
-            In a normal builder you might forget some `withName()` invocation and the compilation will be fine. With a step builder, you cannot 
-            invoke `.build();` while you didn't invoke all the required `withXZY()` methods.
-        """.trimIndent()
-        changeNotes =
-            """
-            Support IntelliJ IDEA 2024.3
-            Migrate to new Idea gradle plugin system
-            Fix Kotlin deprecated notices
-            """.trimIndent()
         ideaVersion {
-            sinceBuild = "233"
+            sinceBuild = "223"
             untilBuild = "243.*" // 243 = 2024.3
         }
         vendor {
@@ -149,25 +133,23 @@ tasks {
         }
     }
 
-//    patchPluginXml {
-//        version = properties("pluginVersion")
-//        sinceBuild.set(properties("pluginSinceBuild"))
-//        untilBuild.set(properties("pluginUntilBuild"))
-//
-//        // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
-//        pluginDescription.set(
-//            File(projectDir, "README.md").readText().lines().run {
-//                val start = "<!-- Plugin description -->"
-//                val end = "<!-- Plugin description end -->"
-//
-//                if (!containsAll(listOf(start, end))) {
-//                    throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
-//                }
-//                subList(indexOf(start) + 1, indexOf(end))
-//            }.joinToString("\n").run { markdownToHTML(this) }
-//        )
-//
-//        // Get the latest available change notes from the changelog file
-//        changeNotes.set(provider { changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML) })
-//    }
+    patchPluginXml {
+        version = properties("pluginVersion")
+
+        // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
+        pluginDescription.set(
+            File(projectDir, "README.md").readText().lines().run {
+                val start = "<!-- Plugin description -->"
+                val end = "<!-- Plugin description end -->"
+
+                if (!containsAll(listOf(start, end))) {
+                    throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
+                }
+                subList(indexOf(start) + 1, indexOf(end))
+            }.joinToString("\n").run { markdownToHTML(this) }
+        )
+
+        // Get the latest available change notes from the changelog file
+        changeNotes.set(provider { changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML) })
+    }
 }
