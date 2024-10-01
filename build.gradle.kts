@@ -1,6 +1,4 @@
 import io.gitlab.arturbosch.detekt.Detekt
-import org.jetbrains.changelog.Changelog
-import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -27,7 +25,6 @@ plugins {
     id("com.github.hierynomus.license") version "0.16.1"
     // Sonar support
     id("org.sonarqube") version "5.1.0.4882"
-
 }
 
 group = properties("pluginGroup")
@@ -77,9 +74,8 @@ intellijPlatform {
             Fix Kotlin deprecated notices
             """.trimIndent()
         ideaVersion {
-            sinceBuild = "222"
+            sinceBuild = "233"
             untilBuild = "243.*" // 243 = 2024.3
-
         }
         vendor {
             name = "Sebastien Vermeille"
@@ -88,7 +84,6 @@ intellijPlatform {
         }
     }
     pluginVerification {
-
     }
     publishing {
         host = "https://plugins.jetbrains.com"
@@ -148,9 +143,9 @@ tasks {
 
     withType<Detekt>().configureEach {
         reports {
-            html.required.set(true)  // Enable HTML report
-            xml.required.set(true)   // Enable XML report
-            txt.required.set(false)  // Disable TXT report
+            html.required.set(true)
+            xml.required.set(true)
+            txt.required.set(false)
         }
     }
 
@@ -175,5 +170,4 @@ tasks {
 //        // Get the latest available change notes from the changelog file
 //        changeNotes.set(provider { changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML) })
 //    }
-
 }
