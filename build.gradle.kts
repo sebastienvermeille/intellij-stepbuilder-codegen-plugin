@@ -1,6 +1,9 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.gradle.kotlin.dsl.resolvedConfiguration
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.models.ProductRelease
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -25,6 +28,7 @@ plugins {
     id("com.github.hierynomus.license") version "0.16.1"
     // Sonar support
     id("org.sonarqube") version "5.1.0.4882"
+    // plugin verifier
 }
 
 group = properties("pluginGroup")
@@ -45,6 +49,7 @@ dependencies {
 //        plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
     }
+    runtimeOnly("org.jetbrains.intellij.plugins:verifier-cli:1.379")
 }
 
 // Configure gradle-intellij-plugin plugin.
@@ -66,6 +71,17 @@ intellijPlatform {
         }
     }
     pluginVerification {
+        cliPath = file("build/libs/verifier-cli-1.379.jar")
+
+        ides {
+            recommended()
+//            select {
+//                types = listOf(IntelliJPlatformType.IntellijIdeaCommunity)
+//                channels = listOf(ProductRelease.Channel.RELEASE)
+//                sinceBuild = properties("pluginSinceBuild")
+//                untilBuild = properties("pluginUntilBuild")
+//            }
+        }
     }
     publishing {
         host = "https://plugins.jetbrains.com"
@@ -149,5 +165,21 @@ tasks {
 
         // Get the latest available change notes from the changelog file
         changeNotes.set(provider { changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML) })
+    }
+}
+
+tasks.register<Copy>("downloadVerifierCli") {
+    val outputDir = layout.buildDirectory.dir("libs").get().asFile
+
+    from(configurations.create("verifierCli").apply {
+        dependencies.add(
+            project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.379")
+        )
+    })
+
+    into(outputDir)
+
+    doLast {
+        println("Dependency downloaded to: ${outputDir.absolutePath}")
     }
 }

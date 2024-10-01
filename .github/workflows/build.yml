@@ -26,12 +26,10 @@ jobs:
         run: ./gradlew verifyGoogleJavaFormat
       - name: Build Plugin
         run: ./gradlew buildPlugin
-      - name: Verify compatibility with latest EAP
-        uses: thepieterdc/intellij-plugin-verifier-action@7aefead1a1c18e9bbcb3812fcc552e4748ab9664 # v1.4.0
-        with:
-          plugin: '/home/runner/work/intellij-stepbuilder-codegen-plugin/intellij-stepbuilder-codegen-plugin/build/distributions/intellij-stepbuilder-codegen-plugin-*'
-          versions: |
-            2022.3.3
+      - name: Download verifier-cli
+        run: ./gradlew downloadVerifierCli
+      - name: Verify compatibility
+        run: ./gradlew verifyPlugin
       - name: Extract PR number
         if: github.event_name == 'pull_request'
         run: echo ${{ github.event.number }} > PR_NUMBER.txt
