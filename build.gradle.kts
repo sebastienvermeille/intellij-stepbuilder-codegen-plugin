@@ -11,10 +11,8 @@ plugins {
     id("java")
     // Kotlin support
     kotlin("jvm") version "2.0.20"
-//    id("org.jetbrains.kotlin.jvm") version "2.0.20"
     // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
     id("org.jetbrains.intellij.platform") version "2.1.0"
-//    id("org.jetbrains.intellij.platform.migration") version "2.1.0"
     // gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
     id("org.jetbrains.changelog") version "2.2.1"
     // detekt linter - read more: https://detekt.github.io/detekt/gradle.html
@@ -58,8 +56,8 @@ intellijPlatform {
         id = "cookiecode-stepbuilder-plugin"
         name = "Stepbuilder Codegen"
         ideaVersion {
-            sinceBuild = "223"
-            untilBuild = "243.*" // 243 = 2024.3
+            sinceBuild = properties("pluginSinceBuild")
+            untilBuild = properties("pluginUntilBuild")
         }
         vendor {
             name = "Sebastien Vermeille"
@@ -112,8 +110,8 @@ license {
 tasks {
     // Set the compatibility versions to 17
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = properties("targetJdk")
+        targetCompatibility = properties("targetJdk")
     }
     withType<KotlinCompile> {
         compilerOptions {
@@ -122,7 +120,7 @@ tasks {
     }
 
     withType<Detekt> {
-        jvmTarget = "17"
+        jvmTarget = properties("targetJdk")
     }
 
     withType<Detekt>().configureEach {

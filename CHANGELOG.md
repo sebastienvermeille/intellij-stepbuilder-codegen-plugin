@@ -4,8 +4,9 @@
 
 ## [Unreleased]
 ### Added
-- Support for IntelliJ 2024.3 (branch number 242)
-
+- Support for IntelliJ 2024.3 EAP (branch number 243)
+- Migrate Gradle project to IntelliJ Platform Gradle Plugin (2.x)
+- Fix deprecated Kotlin calls
 ## [2.1.0]
 ### Added
 - Support for IntelliJ 2024.2 (branch number 242)
