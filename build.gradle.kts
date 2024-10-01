@@ -18,7 +18,7 @@ plugins {
     // detekt linter - read more: https://detekt.github.io/detekt/gradle.html
     id("io.gitlab.arturbosch.detekt") version "1.23.7"
     // ktlint linter - read more: https://github.com/JLLeitschuh/ktlint-gradle
-    id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
     // google-java-format
     id("com.github.sherter.google-java-format") version "0.9"
     // license header
@@ -156,7 +156,9 @@ tasks {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
                 subList(indexOf(start) + 1, indexOf(end))
-            }.joinToString("\n").run { markdownToHTML(this) }
+            }.joinToString("\n").run {
+                markdownToHTML(this)
+            },
         )
 
         // Get the latest available change notes from the changelog file
@@ -170,9 +172,9 @@ tasks.register<Copy>("downloadVerifierCli") {
     from(
         configurations.create("verifierCli").apply {
             dependencies.add(
-                project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.379")
+                project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.379"),
             )
-        }
+        },
     )
 
     into(outputDir)
