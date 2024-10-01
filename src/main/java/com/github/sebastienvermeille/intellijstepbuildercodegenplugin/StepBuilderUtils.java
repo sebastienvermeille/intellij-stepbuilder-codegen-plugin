@@ -31,9 +31,9 @@ import com.intellij.psi.PsiPrimitiveType;
 import com.intellij.psi.PsiStatement;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.util.PsiUtil;
-import javax.annotation.Nullable;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class StepBuilderUtils {
   @NonNls static final String JAVA_DOT_LANG = "java.lang.";
