@@ -32,7 +32,6 @@ jobs:
           plugin: '/home/runner/work/intellij-stepbuilder-codegen-plugin/intellij-stepbuilder-codegen-plugin/build/distributions/intellij-stepbuilder-codegen-plugin-*'
           versions: |
             2022.3.3
-            LATEST-EAP-SNAPSHOT
       - name: Extract PR number
         if: github.event_name == 'pull_request'
         run: echo ${{ github.event.number }} > PR_NUMBER.txt
