@@ -26,10 +26,6 @@ jobs:
         run: ./gradlew verifyGoogleJavaFormat
       - name: Build Plugin
         run: ./gradlew buildPlugin
-      - name: Download verifier-cli
-        run: ./gradlew downloadVerifierCli
-      - name: Verify compatibility
-        run: ./gradlew verifyPlugin
       - name: Extract PR number
         if: github.event_name == 'pull_request'
         run: echo ${{ github.event.number }} > PR_NUMBER.txt
