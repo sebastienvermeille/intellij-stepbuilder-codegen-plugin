@@ -1,9 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
-import org.gradle.kotlin.dsl.resolvedConfiguration
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
-import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
-import org.jetbrains.intellij.platform.gradle.models.ProductRelease
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -46,7 +43,6 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
     intellijPlatform {
         create(properties("platformType"), properties("platformVersion"))
-//        plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
     }
     runtimeOnly("org.jetbrains.intellij.plugins:verifier-cli:1.379")
@@ -171,11 +167,13 @@ tasks {
 tasks.register<Copy>("downloadVerifierCli") {
     val outputDir = layout.buildDirectory.dir("libs").get().asFile
 
-    from(configurations.create("verifierCli").apply {
-        dependencies.add(
-            project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.379")
-        )
-    })
+    from(
+        configurations.create("verifierCli").apply {
+            dependencies.add(
+                project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.379")
+            )
+        }
+    )
 
     into(outputDir)
 
