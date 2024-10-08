@@ -22,7 +22,7 @@ jobs:
 
       # Upload plugin artifact to make it available in the next jobs
       - name: Upload artifact
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v4.4.2
         with:
           name: plugin-artifact
           path: ./build/distributions/intellij-stepbuilder-codegen-plugin-${{ github.event.release.tag_name }}.zip
