@@ -24,7 +24,7 @@ plugins {
     // license header
     id("com.github.hierynomus.license") version "0.16.1"
     // Sonar support
-    id("org.sonarqube") version "5.1.0.4882"
+    id("org.sonarqube") version "6.0.0.5145"
     // plugin verifier
 }
 
