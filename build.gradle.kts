@@ -45,7 +45,7 @@ dependencies {
         create(properties("platformType"), properties("platformVersion"))
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
     }
-    runtimeOnly("org.jetbrains.intellij.plugins:verifier-cli:1.379")
+    runtimeOnly("org.jetbrains.intellij.plugins:verifier-cli:1.381")
 }
 
 // Configure gradle-intellij-plugin plugin.
@@ -172,7 +172,7 @@ tasks.register<Copy>("downloadVerifierCli") {
     from(
         configurations.create("verifierCli").apply {
             dependencies.add(
-                project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.379"),
+                project.dependencies.create("org.jetbrains.intellij.plugins:verifier-cli:1.381"),
             )
         },
     )
