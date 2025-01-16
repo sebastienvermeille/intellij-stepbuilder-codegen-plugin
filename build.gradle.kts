@@ -10,9 +10,9 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    kotlin("jvm") version "2.0.20"
+    kotlin("jvm") version "2.1.0"
     // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-    id("org.jetbrains.intellij.platform") version "2.1.0"
+    id("org.jetbrains.intellij.platform") version "2.2.1"
     // gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
     id("org.jetbrains.changelog") version "2.2.1"
     // detekt linter - read more: https://detekt.github.io/detekt/gradle.html
@@ -24,7 +24,7 @@ plugins {
     // license header
     id("com.github.hierynomus.license") version "0.16.1"
     // Sonar support
-    id("org.sonarqube") version "5.1.0.4882"
+    id("org.sonarqube") version "6.0.1.5171"
     // plugin verifier
 }
 
