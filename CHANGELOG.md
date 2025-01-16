@@ -2,7 +2,11 @@
 
 # intellij-stepbuilder-codegen-plugin Changelog
 
-## [Unreleased]
+## [4.0.0]
+### Added
+- Support for IntelliJ 2025.1 EAP (branch number 251)
+
+## [3.0.0]
 ### Added
 - Support for IntelliJ 2024.3 EAP (branch number 243)
 - Migrate Gradle project to IntelliJ Platform Gradle Plugin (2.x)
